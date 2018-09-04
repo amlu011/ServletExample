@@ -1,5 +1,7 @@
+package com.thoughtclan;
 
 
+import java.util.List;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,25 +9,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.test.Todo;
 
+import com.test.User;
 /**
- * Servlet implementation class DisplayServlet
+ * Servlet implementation class HomeServlet
  */
-public class DisplayServlet extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DisplayServlet() {
+    public HomeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,25 +34,23 @@ public class DisplayServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Todo> dataList=new ArrayList<Todo>();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		List<User> dataList=new ArrayList<User>();
 
-    	UserTodoDao userDAO= new UserTodoDao();
-    	int u_id=-1;
-    	
-    	if(request.getParameter("u_id")!=null){
-		u_id=Integer.parseInt(request.getParameter("u_id"));
-    	}else {
-    		u_id=(Integer) request.getAttribute("u_id");
-    		
-    	}
-		
-		
+    	UserTodoDao user = new UserTodoDao();
+		//int u_id=Integer.parseInt(request.getParameter("u_id"));
 		//'System.out.println("Recived id: "+u_id);
-    	dataList=userDAO.displayTodo(u_id);
+    	dataList=user.displayUsers();
 		request.setAttribute("data", dataList);
-		RequestDispatcher rd=request.getRequestDispatcher("todoDisp.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("output.jsp");
 		System.out.println("Sending...............................................");
 		rd.forward(request, response);
-}
+		
+		
+		
+			
+		
+	}
 }
